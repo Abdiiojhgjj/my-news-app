@@ -10,7 +10,7 @@ jobs:
 
       - name: Unzip project
         run: |
-          unzip daily-news-brief.zip
+          unzip -o daily-news-brief.zip
           if [ ! -f gradlew ]; then
             SUBDIR=$(find . -maxdepth 2 -name "gradlew" -exec dirname {} \;)
             if [ -n "$SUBDIR" ]; then
@@ -37,4 +37,3 @@ jobs:
         with:
           name: Daily-News-App
           path: "**/build/outputs/apk/debug/*.apk"
-
