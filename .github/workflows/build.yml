@@ -9,22 +9,16 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Unzip project
-        run: |
-          unzip -o daily-news-brief.zip
-          if [ ! -f gradlew ]; then
-            SUBDIR=$(find . -maxdepth 2 -name "gradlew" -exec dirname {} \;)
-            if [ -n "$SUBDIR" ]; then
-              mv $SUBDIR/* .
-              mv $SUBDIR/.* . 2>/dev/null || true
-            fi
-          fi
+        run: unzip -o daily-news-brief.zip
 
       - name: set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: gradle
+
+      - name: Generate Gradle Wrapper (Fix missing file)
+        run: gradle wrapper
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
